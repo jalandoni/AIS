@@ -149,7 +149,7 @@ export default {
           text: "Due Date",
           value: "dueDate"
         },
-        { text: "Comment", value: "status", sortable: false },
+        { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "action", sortable: false },
         { text: "", value: "info" }
       ]
@@ -191,6 +191,24 @@ export default {
 
     editBtn(item) {
       console.log(item);
+      if(item.firstname == this.firstname && item.lastname == this.lastname &&
+      item.bookId == this.bookId && item.title == this.title ){
+        Swal.fire({
+        title: "Nothing is updated",
+        type: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Okay!",
+        reverseButtons: true
+      })
+      }else {
+        Swal.fire({
+        title: "Information is Updated!",
+        type: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Okay!",
+        reverseButtons: true
+      })
+      }
         (item.firstname = this.firstname),
         (item.lastname = this.lastname),
         (item.bookId = this.bookId),
@@ -200,13 +218,7 @@ export default {
         lastname: item.lastname,
         bookId: item.bookId,
         title: item.title
-      };Swal.fire({
-        title: "Information is Updated!",
-        type: "success",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Okay!",
-        reverseButtons: true
-      })
+      };
       updateBorrower(data, item._id)
         .then(data => {
           this.$emit("updateBorrower", data.data);
